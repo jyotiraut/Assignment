@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Your Short URLs</h3>
+
+<a class="btn" href="/create/">+ Create New URL</a>
+
+<table>
+    <tr>
+        <th>Short URL</th>
+        <th>Original URL</th>
+        <th>Clicks</th>
+        <th>Created</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for url in urls %}
+    <tr>
+        <td>
+            <a href="/{{ url.short_key }}" target="_blank">
+                {{ request.get_host }}/{{ url.short_key }}
+            </a>
+        </td>
+        <td class="truncate">{{ url.original_url }}</td>
+        <td>{{ url.clicks }}</td>
+        <td>{{ url.created_at|date:"Y-m-d" }}</td>
+        <td>
+            <a href="/edit/{{ url.id }}/">Edit</a> |
+            <a href="/delete/{{ url.id }}/">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5">No URLs created yet.</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

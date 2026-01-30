@@ -5,6 +5,10 @@ from shortener.views import register
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', register, name='register'),
-    path('', include('shortener.urls')),
+
+    # Django auth URLs → /login/, /logout/
     path('', include('django.contrib.auth.urls')),
+
+    # App URLs
+    path('', include('shortener.urls')),
 ]
